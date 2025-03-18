@@ -51,7 +51,7 @@ function handleTimSoDuongMin() {
 function handleTimSoChangCuoiCung() {
   let soChanCuoiCung = -1;
   for (let i = arrNumber.length - 1; i >= 0; i--) {
-    if (arrNumber[i] % 2 === 0) {
+    if (arrNumber[i] % 2 === 0 && arrNumber[i] >= 0) {
       soChanCuoiCung = arrNumber[i];
       break;
     }
@@ -63,17 +63,28 @@ function handleTimSoChangCuoiCung() {
 }
 
 function handleSwap2So() {
-  let index1 = document.querySelector("#vitri1").value * 1;
-  let index2 = document.querySelector("#vitri2").value * 1;
-  if (index1 == "" || index2 == "") {
-    return -1;
+  const vitri1 = parseInt(document.getElementById("vitri1").value);
+  const vitri2 = parseInt(document.getElementById("vitri2").value);
+  if (isNaN(vitri1) || isNaN(vitri2)) {
+    alert("Vui lòng nhập vị trí hợp lệ");
+    return;
   }
-  [arrNumber[index1], arrNumber[index2]] = [
-    arrNumber[index2],
-    arrNumber[index1],
+  if (
+    vitri1 < 0 ||
+    vitri1 >= arrNumber.length ||
+    vitri2 < 0 ||
+    vitri2 >= arrNumber.length
+  ) {
+    alert("Vị trí nhập không hợp lệ");
+    return;
+  }
+  [arrNumber[vitri1], arrNumber[vitri2]] = [
+    arrNumber[vitri2],
+    arrNumber[vitri1],
   ];
-  document.querySelector("#mangdoicho").innerHTML = "Mảng đã đổi: " + arrNumber;
-  console.log(arrNumber);
+  document.getElementById(
+    "mangdoicho"
+  ).innerText = `Mảng sau khi đổi chỗ: ${arrNumber.join(", ")}`;
 }
 
 function handleSapXepTang() {
@@ -122,16 +133,10 @@ document.querySelector(".btnDemSoNguyen").onclick = function () {
 };
 
 document.querySelector("#headingTen").onclick = function () {
-  let arrSoDuong = [];
-  let arrSoAm = [];
-  arrNumber.filter((item, index) => {
-    if (item >= 0) {
-      arrSoDuong.push(item);
-    } else {
-      arrSoAm.push(item);
-    }
-  });
-  let soSanh = arrSoDuong.length > arrSoAm ? true : false;
+  let arrSoDuong = arrNumber.filter((item) => item >= 0);
+  let arrSoAm = arrNumber.filter((item) => item < 0);
+
+  let soSanh = arrSoDuong.length > arrSoAm.length;
   document.querySelector("#soSanhAmDuong").innerHTML = soSanh
     ? "Số dương nhiều hơn"
     : "Số âm nhiều hơn";
