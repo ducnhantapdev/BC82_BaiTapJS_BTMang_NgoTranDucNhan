@@ -57,7 +57,9 @@ function handleTimSoChangCuoiCung() {
     }
   }
   document.querySelector("#soChanCuoiCung").innerHTML =
-    "Số chẳn cuối cùng trong mảng: " + soChanCuoiCung;
+    "Số chẳn cuối cùng trong mảng: " + soChanCuoiCung !== -1
+      ? soChanCuoiCung
+      : -1;
 }
 
 function handleSwap2So() {
@@ -94,17 +96,16 @@ function checkSoNguyenTo(n) {
   return true;
 }
 function handleTimSoNguyenTo() {
-  let soNT = 0;
-  for (let i = 0; i <= arrNumber.length; i++) {
+  let soNT = -1;
+  for (let i = 0; i < arrNumber.length; i++) {
     if (checkSoNguyenTo(arrNumber[i])) {
       soNT = arrNumber[i];
       break;
     }
   }
   document.querySelector("#demSoNguyenTo").innerHTML =
-    "Số nguyên tố đầu tiên: " + (soNT != 0 ? soNT : -1);
+    "Số nguyên tố đầu tiên: " + (soNT !== -1 ? soNT : -1);
 }
-
 let newArr = [];
 let renderNewArr = document.querySelector(".mangSoThuc");
 document.querySelector(".btnMangSoThucMoi").onclick = function () {
