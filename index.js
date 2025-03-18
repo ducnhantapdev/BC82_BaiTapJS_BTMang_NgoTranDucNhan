@@ -104,3 +104,34 @@ function handleTimSoNguyenTo() {
   document.querySelector("#demSoNguyenTo").innerHTML =
     "Số nguyên tố đầu tiên: " + (soNT != 0 ? soNT : -1);
 }
+
+let newArr = [];
+let renderNewArr = document.querySelector(".mangSoThuc");
+document.querySelector(".btnMangSoThucMoi").onclick = function () {
+  let getValue = document.querySelector("#mangSTMoi").value * 1;
+  newArr.push(getValue);
+  renderNewArr.innerHTML = newArr;
+};
+
+document.querySelector(".btnDemSoNguyen").onclick = function () {
+  console.log("newArr", newArr);
+  let dem = newArr.filter(Number.isInteger).length;
+  document.querySelector("#timSoNguyen").innerHTML =
+    "Có tất cả: " + dem + " số nguyên";
+};
+
+document.querySelector("#headingTen").onclick = function () {
+  let arrSoDuong = [];
+  let arrSoAm = [];
+  arrNumber.filter((item, index) => {
+    if (item >= 0) {
+      arrSoDuong.push(item);
+    } else {
+      arrSoAm.push(item);
+    }
+  });
+  let soSanh = arrSoDuong.length > arrSoAm ? true : false;
+  document.querySelector("#soSanhAmDuong").innerHTML = soSanh
+    ? "Số dương nhiều hơn"
+    : "Số âm nhiều hơn";
+};
